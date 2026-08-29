@@ -39,4 +39,17 @@ public class StudentRepositoryTest {
         assertEquals(1, studentRepository.count());
     }
 
+    @Test
+    public void createStudent_findByEmailTest(){
+        createStudentRequest.setName("Azeez");
+        createStudentRequest.setEmail("az@gmail.com");
+        createStudentRequest.setDepartment("Biochemistry");
+        studentService.createStudent(createStudentRequest);
+
+        Student student = studentRepository.findByEmail(createStudentRequest.getEmail());
+
+        assertEquals(student.getName(), createStudentRequest.getName());
+
+    }
+
 }

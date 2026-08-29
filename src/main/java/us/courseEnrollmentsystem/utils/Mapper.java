@@ -20,6 +20,7 @@ public class Mapper {
         studentResponse.setEmail(student.getEmail());
         studentResponse.setName(student.getName());
         studentResponse.setDepartment(student.getDepartment());
+        studentResponse.setStudentId(student.getStudentId());
 
         return studentResponse;
     }

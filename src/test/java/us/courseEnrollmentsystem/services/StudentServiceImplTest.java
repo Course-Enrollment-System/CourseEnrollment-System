@@ -59,4 +59,19 @@ public class StudentServiceImplTest {
         assertEquals(1, studentRepository.count());
     }
 
+    @Test
+    public void registerTwoStudentSWithValidRequestButWithSameEmailThrowsExceptionTest(){
+        createStudentRequest.setName("Azeez");
+        createStudentRequest.setEmail("az@gmail.com");
+        createStudentRequest.setDepartment("Biochemistry");
+        studentService.createStudent(createStudentRequest);
+
+        CreateStudentRequest createStudentRequest2 = new CreateStudentRequest();
+        createStudentRequest2.setName("Bola");
+        createStudentRequest2.setEmail("az@gmail.com");
+        createStudentRequest2.setDepartment("chemistry");
+        assertThrows(StudentException.class, () -> studentService.createStudent(createStudentRequest2));
+
+    }
+
 }
