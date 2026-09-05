@@ -4,7 +4,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import us.courseEnrollmentsystem.data.models.Student;
 import us.courseEnrollmentsystem.data.repositories.StudentRepository;
+import us.courseEnrollmentsystem.dtos.requests.LoginRequest;
 import us.courseEnrollmentsystem.dtos.requests.RegisterStudentRequest;
+import us.courseEnrollmentsystem.dtos.responses.LoginResponse;
 import us.courseEnrollmentsystem.dtos.responses.RegisterStudentResponse;
 import us.courseEnrollmentsystem.exception.StudentException;
 
@@ -25,5 +27,10 @@ public class AuthServiceImpl implements AuthService {
         studentRepository.save(student);
 
         return map(student);
+    }
+
+    @Override
+    public LoginResponse login(LoginRequest loginRequest) {
+        return null;
     }
 }

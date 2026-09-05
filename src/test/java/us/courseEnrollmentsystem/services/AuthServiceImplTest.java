@@ -36,19 +36,19 @@ public class AuthServiceImplTest {
     @ParameterizedTest
     @NullSource
     public void registerStudentWithNullRequest(RegisterStudentRequest createStudentRequest){
-        assertThrows(StudentException.class, () -> authService.createStudent(createStudentRequest));
+        assertThrows(StudentException.class, () -> authService.registerStudent(createStudentRequest));
     }
 
     @Test
     public void registerStudentWithEmptyRequest(){
-        assertThrows(StudentException.class, () -> authService.createStudent(createStudentRequest));
+        assertThrows(StudentException.class, () -> authService.registerStudent(createStudentRequest));
     }
 
     @Test
     public void registerStudentWithIncompleteRequestThrowsStudentException(){
         createStudentRequest.setName("Azeez");
         createStudentRequest.setEmail("az@gmail.com");
-        assertThrows(StudentException.class, () -> authService.createStudent(createStudentRequest));
+        assertThrows(StudentException.class, () -> authService.registerStudent(createStudentRequest));
     }
 
     @Test
@@ -57,7 +57,7 @@ public class AuthServiceImplTest {
         createStudentRequest.setEmail("az@gmail.com");
         createStudentRequest.setDepartment("Biochemistry");
 
-        authService.createStudent(createStudentRequest);
+        authService.registerStudent(createStudentRequest);
         assertEquals(1, studentRepository.count());
     }
 
@@ -66,13 +66,13 @@ public class AuthServiceImplTest {
         createStudentRequest.setName("Azeez");
         createStudentRequest.setEmail("az@gmail.com");
         createStudentRequest.setDepartment("Biochemistry");
-        authService.createStudent(createStudentRequest);
+        authService.registerStudent(createStudentRequest);
 
         RegisterStudentRequest createStudentRequest2 = new RegisterStudentRequest();
         createStudentRequest2.setName("Bola");
         createStudentRequest2.setEmail("az@gmail.com");
         createStudentRequest2.setDepartment("chemistry");
-        assertThrows(StudentException.class, () -> authService.createStudent(createStudentRequest2));
+        assertThrows(StudentException.class, () -> authService.registerStudent(createStudentRequest2));
 
     }
 
