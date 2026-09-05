@@ -54,7 +54,13 @@ public class AuthServiceImpl implements AuthService {
 
     @Override
     public String logout(String email) {
-        return "";
+        Student student = studentRepository.findByEmail(email);
+
+        if (student == null) throw new StudentException("Student not found");
+        student.setActive(false);
+        studentRepository.save(student);
+
+        return "Logged out successfully";
     }
 
 }
