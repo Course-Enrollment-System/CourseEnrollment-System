@@ -29,6 +29,7 @@ public class StudentRepositoryTest {
         student.setName("Azeez");
         student.setEmail("az@gmail.com");
         student.setDepartment("Biochemistry");
+        student.setPassword("12346");
 
         studentRepository.save(student);
 
@@ -41,6 +42,7 @@ public class StudentRepositoryTest {
         student.setName("Azeez");
         student.setEmail("az@gmail.com");
         student.setDepartment("Biochemistry");
+        student.setPassword("12346");
 
         studentRepository.save(student);
 
