@@ -33,7 +33,7 @@ public class AuthServiceImplTest {
     private LoginRequest loginRequest;
 
     @BeforeEach
-    public void setUp(){
+    public void setUp() {
         studentRepository.deleteAll();
         createStudentRequest = new RegisterStudentRequest();
         loginRequest = new LoginRequest();
@@ -41,37 +41,37 @@ public class AuthServiceImplTest {
 
     @ParameterizedTest
     @NullSource
-    public void registerStudentWithNullRequest(RegisterStudentRequest createStudentRequest){
+    public void registerStudentWithNullRequest(RegisterStudentRequest createStudentRequest) {
         assertThrows(StudentException.class, () -> authService.registerStudent(createStudentRequest));
     }
 
     @Test
-    public void registerStudentWithEmptyRequest(){
+    public void registerStudentWithEmptyRequest() {
         assertThrows(StudentException.class, () -> authService.registerStudent(createStudentRequest));
     }
 
     @Test
-    public void registerStudentWithIncompleteRequestThrowsStudentException(){
+    public void registerStudentWithIncompleteRequestThrowsStudentException() {
         createStudentRequest.setName("Azeez");
         createStudentRequest.setEmail("az@gmail.com");
         assertThrows(StudentException.class, () -> authService.registerStudent(createStudentRequest));
     }
 
     @ParameterizedTest
-    @ValueSource(strings = {"1","12", "123", "1234", "12345"})
-    public void registerStudentWithInvalidPasswordThrowsStudentExceptionTest(String password){
+    @ValueSource(strings = {"1", "12", "123", "1234", "12345"})
+    public void registerStudentWithInvalidPasswordThrowsStudentExceptionTest(String password) {
         RegisterStudentRequest createStudentRequest = new RegisterStudentRequest();
         createStudentRequest.setName("Azeez");
         createStudentRequest.setEmail("az@gmail.com");
         createStudentRequest.setDepartment("Biochemistry");
         createStudentRequest.setPassword(password);
 
-        assertThrows(StudentException.class, ()-> authService.registerStudent(createStudentRequest));
+        assertThrows(StudentException.class, () -> authService.registerStudent(createStudentRequest));
 
     }
 
     @Test
-    public void registerStudentWithValidRequestRepositoryCountIsOneTest(){
+    public void registerStudentWithValidRequestRepositoryCountIsOneTest() {
         createStudentRequest.setName("Azeez");
         createStudentRequest.setEmail("az@gmail.com");
         createStudentRequest.setDepartment("Biochemistry");
@@ -82,7 +82,7 @@ public class AuthServiceImplTest {
     }
 
     @Test
-    public void registerTwoStudentSWithValidRequestButWithSameEmailThrowsExceptionTest(){
+    public void registerTwoStudentSWithValidRequestButWithSameEmailThrowsExceptionTest() {
         createStudentRequest.setName("Azeez");
         createStudentRequest.setEmail("az@gmail.com");
         createStudentRequest.setDepartment("Biochemistry");
@@ -100,12 +100,12 @@ public class AuthServiceImplTest {
 
     @Test
     public void loginStudentORAdminWithNullRequestThrowsStudentExceptionTest() {
-        assertThrows( StudentException.class, () -> authService.login(null) );
+        assertThrows(StudentException.class, () -> authService.login(null));
     }
 
     @Test
     public void loginStudentORAdminWithEmptyRequestThrowsStudentExceptionTest() {
-        assertThrows( StudentException.class, () -> authService.login(loginRequest) );
+        assertThrows(StudentException.class, () -> authService.login(loginRequest));
     }
 
     @Test
@@ -117,18 +117,18 @@ public class AuthServiceImplTest {
         authService.registerStudent(createStudentRequest);
 
         loginRequest.setEmail(createStudentRequest.getEmail());
-        assertThrows( StudentException.class, () -> authService.login(loginRequest) );
+        assertThrows(StudentException.class, () -> authService.login(loginRequest));
     }
 
     @Test
     public void loginAdminWithIncompleteRequestThrowsStudentExceptionTest() {
         loginRequest.setEmail("admin@administration.com");
-        assertThrows( StudentException.class, () -> authService.login(loginRequest) );
+        assertThrows(StudentException.class, () -> authService.login(loginRequest));
     }
 
     @ParameterizedTest
-    @ValueSource(strings = {"1","12", "123", "1234", "12345"})
-    public void loginStudentWithInvalidPasswordThrowsStudentExceptionTest(String password){
+    @ValueSource(strings = {"1", "12", "123", "1234", "12345"})
+    public void loginStudentWithInvalidPasswordThrowsStudentExceptionTest(String password) {
         createStudentRequest.setName("Azeez");
         createStudentRequest.setEmail("az@gmail.com");
         createStudentRequest.setDepartment("Biochemistry");
@@ -139,7 +139,7 @@ public class AuthServiceImplTest {
         loginRequest.setPassword(password);
 
 
-        assertThrows(StudentException.class, ()-> authService.login(loginRequest) );
+        assertThrows(StudentException.class, () -> authService.login(loginRequest));
 
     }
 
@@ -149,16 +149,16 @@ public class AuthServiceImplTest {
         loginRequest.setPassword("Administration1234$$");
 
         LoginResponse response = authService.login(loginRequest);
-        assertEquals( "admin@administration.com", response.getEmail() );
-        assertEquals( Role.ADMIN, response.getRole());
-        assertEquals( "Login successful", response.getMessage() );
+        assertEquals("admin@administration.com", response.getEmail());
+        assertEquals(Role.ADMIN, response.getRole());
+        assertEquals("Login successful", response.getMessage());
     }
 
     @Test
     public void adminWithWrongPasswordCannotLoginThrowsExceptionTest() {
         loginRequest.setEmail("admin@administration.com");
         loginRequest.setPassword("wrongPassword");
-        assertThrows( StudentException.class, () -> authService.login(loginRequest) );
+        assertThrows(StudentException.class, () -> authService.login(loginRequest));
     }
 
     @Test
@@ -174,8 +174,8 @@ public class AuthServiceImplTest {
         loginRequest.setPassword("123456");
 
         LoginResponse response = authService.login(loginRequest);
-        assertEquals( "az@gmail.com", response.getEmail() );
-        assertEquals( "Login successful", response.getMessage() );
+        assertEquals("az@gmail.com", response.getEmail());
+        assertEquals("Login successful", response.getMessage());
         Student loggedInStudent = studentRepository.findByEmail(loginRequest.getEmail());
         assertTrue(loggedInStudent.isActive());
     }
@@ -204,6 +204,28 @@ public class AuthServiceImplTest {
     public void LoginStudentNotFoundThrowsExceptionTest() {
         loginRequest.setEmail("askimolo@gmail.com");
         loginRequest.setPassword("123456");
-        assertThrows( StudentException.class, () -> authService.login(loginRequest) );
+        assertThrows(StudentException.class, () -> authService.login(loginRequest));
+    }
+
+    @Test
+    public void studentCanLogoutTest() {
+        createStudentRequest.setName("Azeez");
+        createStudentRequest.setEmail("az@gmail.com");
+        createStudentRequest.setDepartment("Biochemistry");
+        createStudentRequest.setPassword("123456");
+
+        authService.registerStudent(createStudentRequest);
+
+        loginRequest.setEmail("az@gmail.com");
+        loginRequest.setPassword("123456");
+        authService.login(loginRequest);
+
+        Student savedStudent = studentRepository.findByEmail(loginRequest.getEmail());
+        assertTrue(savedStudent.isActive());
+        authService.logout(createStudentRequest.getEmail());
+
+        Student loggedOutStudent = studentRepository.findByEmail(loginRequest.getEmail());
+
+        assertFalse(loggedOutStudent.isActive());
     }
 }
