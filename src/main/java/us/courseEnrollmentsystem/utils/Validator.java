@@ -7,11 +7,14 @@ import us.courseEnrollmentsystem.exception.StudentException;
 
 public class Validator {
 
+    private static final int MIN_PASSWORD_LENGTH = 6;
+
     public static void validateStudentRequest(RegisterStudentRequest studentRequest){
         if (studentRequest == null) throw new StudentException("Student request cannot be null");
         if (studentRequest.getName() == null || studentRequest.getName().isEmpty()) throw new StudentException("Student name cannot be empty");
         if (studentRequest.getEmail() == null || studentRequest.getEmail().isEmpty()) throw new StudentException("Student email cannot be empty");
         if(studentRequest.getDepartment() == null || studentRequest.getDepartment().isEmpty()) throw new StudentException("Department name cannot be empty");
+        if (studentRequest.getPassword() == null || studentRequest.getPassword().isEmpty() || studentRequest.getPassword().length() < MIN_PASSWORD_LENGTH ) throw new StudentException("Password cannot be empty or less than 6 characters");
     }
 
     public static void validateCourseRequest(CreateCourseRequest courseRequest){
