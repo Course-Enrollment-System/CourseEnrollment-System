@@ -1,17 +1,29 @@
 package us.courseEnrollmentsystem.utils;
 
 import us.courseEnrollmentsystem.dtos.requests.CreateCourseRequest;
-import us.courseEnrollmentsystem.dtos.requests.CreateStudentRequest;
+import us.courseEnrollmentsystem.dtos.requests.LoginRequest;
+import us.courseEnrollmentsystem.dtos.requests.RegisterStudentRequest;
 import us.courseEnrollmentsystem.exception.CourseException;
 import us.courseEnrollmentsystem.exception.StudentException;
 
+import javax.security.auth.login.LoginException;
+
 public class Validator {
 
-    public static void validateStudentRequest(CreateStudentRequest studentRequest){
+    private static final int MIN_PASSWORD_LENGTH = 6;
+
+    public static void validateStudentRequest(RegisterStudentRequest studentRequest){
         if (studentRequest == null) throw new StudentException("Student request cannot be null");
         if (studentRequest.getName() == null || studentRequest.getName().isEmpty()) throw new StudentException("Student name cannot be empty");
         if (studentRequest.getEmail() == null || studentRequest.getEmail().isEmpty()) throw new StudentException("Student email cannot be empty");
         if(studentRequest.getDepartment() == null || studentRequest.getDepartment().isEmpty()) throw new StudentException("Department name cannot be empty");
+        if (studentRequest.getPassword() == null || studentRequest.getPassword().isEmpty() || studentRequest.getPassword().length() < MIN_PASSWORD_LENGTH ) throw new StudentException("Password cannot be empty or less than 6 characters");
+    }
+
+    public static void validateLoginRequest(LoginRequest loginRequest){
+        if (loginRequest == null) throw new StudentException("Login request cannot be null");
+        if (loginRequest.getEmail() == null || loginRequest.getEmail().isEmpty()) throw new StudentException("Email cannot be empty");
+        if (loginRequest.getPassword() == null || loginRequest.getPassword().isEmpty() || loginRequest.getPassword().length() < MIN_PASSWORD_LENGTH) throw new StudentException("Password cannot be empty");
     }
 
     public static void validateCourseRequest(CreateCourseRequest courseRequest){

@@ -1,10 +1,9 @@
 package us.courseEnrollmentsystem.dtos.responses;
 
 import lombok.Data;
-import org.springframework.data.annotation.Id;
 
 @Data
-public class CreateStudentResponse {
+public class RegisterStudentResponse {
 
     private String studentId;
     private String name;
