@@ -9,4 +9,5 @@ public interface AuthService {
 
     RegisterStudentResponse registerStudent(RegisterStudentRequest studentRequest);
     LoginResponse login(LoginRequest loginRequest);
+    String logout(String email);
 }
