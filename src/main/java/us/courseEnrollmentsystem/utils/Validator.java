@@ -1,13 +1,13 @@
 package us.courseEnrollmentsystem.utils;
 
 import us.courseEnrollmentsystem.dtos.requests.CreateCourseRequest;
-import us.courseEnrollmentsystem.dtos.requests.CreateStudentRequest;
+import us.courseEnrollmentsystem.dtos.requests.RegisterStudentRequest;
 import us.courseEnrollmentsystem.exception.CourseException;
 import us.courseEnrollmentsystem.exception.StudentException;
 
 public class Validator {
 
-    public static void validateStudentRequest(CreateStudentRequest studentRequest){
+    public static void validateStudentRequest(RegisterStudentRequest studentRequest){
         if (studentRequest == null) throw new StudentException("Student request cannot be null");
         if (studentRequest.getName() == null || studentRequest.getName().isEmpty()) throw new StudentException("Student name cannot be empty");
         if (studentRequest.getEmail() == null || studentRequest.getEmail().isEmpty()) throw new StudentException("Student email cannot be empty");

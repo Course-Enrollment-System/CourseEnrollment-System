@@ -3,13 +3,13 @@ package us.courseEnrollmentsystem.utils;
 import us.courseEnrollmentsystem.data.models.Course;
 import us.courseEnrollmentsystem.data.models.Student;
 import us.courseEnrollmentsystem.dtos.requests.CreateCourseRequest;
-import us.courseEnrollmentsystem.dtos.requests.CreateStudentRequest;
+import us.courseEnrollmentsystem.dtos.requests.RegisterStudentRequest;
 import us.courseEnrollmentsystem.dtos.responses.CreateCourseResponse;
-import us.courseEnrollmentsystem.dtos.responses.CreateStudentResponse;
+import us.courseEnrollmentsystem.dtos.responses.RegisterStudentResponse;
 
 public class Mapper {
 
-    public static Student map(CreateStudentRequest studentRequest){
+    public static Student map(RegisterStudentRequest studentRequest){
         Student student = new Student();
         student.setName(studentRequest.getName());
         student.setEmail(studentRequest.getEmail());
@@ -18,8 +18,8 @@ public class Mapper {
         return student;
     }
 
-    public static CreateStudentResponse map(Student student){
-        CreateStudentResponse studentResponse = new CreateStudentResponse();
+    public static RegisterStudentResponse map(Student student){
+        RegisterStudentResponse studentResponse = new RegisterStudentResponse();
         studentResponse.setEmail(student.getEmail());
         studentResponse.setName(student.getName());
         studentResponse.setDepartment(student.getDepartment());
