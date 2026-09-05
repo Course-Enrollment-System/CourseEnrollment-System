@@ -14,6 +14,7 @@ public class Mapper {
         student.setName(studentRequest.getName());
         student.setEmail(studentRequest.getEmail());
         student.setDepartment(studentRequest.getDepartment());
+        student.setPassword(studentRequest.getPassword());
 
         return student;
     }
