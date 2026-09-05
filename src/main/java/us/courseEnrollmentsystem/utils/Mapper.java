@@ -1,6 +1,7 @@
 package us.courseEnrollmentsystem.utils;
 
 import us.courseEnrollmentsystem.data.models.Course;
+import us.courseEnrollmentsystem.data.models.Role;
 import us.courseEnrollmentsystem.data.models.Student;
 import us.courseEnrollmentsystem.dtos.requests.CreateCourseRequest;
 import us.courseEnrollmentsystem.dtos.requests.RegisterStudentRequest;
@@ -15,6 +16,7 @@ public class Mapper {
         student.setEmail(studentRequest.getEmail());
         student.setDepartment(studentRequest.getDepartment());
         student.setPassword(studentRequest.getPassword());
+        student.setRole(Role.STUDENT);
 
         return student;
     }

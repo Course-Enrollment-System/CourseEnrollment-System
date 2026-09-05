@@ -11,5 +11,9 @@ public class Student {
     private String studentId;
     private String name;
     private String email;
+    private String password;
     private String department;
+    private boolean active;
+    private Role role =  Role.STUDENT;
+
 }
